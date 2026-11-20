@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import '../controllers/role_selection_controller.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/download_helper.dart'
+    if (dart.library.html) '../../../core/utils/download_helper_web.dart';
 
 class RoleSelectionView extends StatefulWidget {
   const RoleSelectionView({super.key});
@@ -285,7 +287,63 @@ class _RoleSelectionViewState extends State<RoleSelectionView>
                         .slideX(begin: 0.3, end: 0, duration: 550.ms, delay: 600.ms, curve: Curves.easeOutCubic)
                         .fadeIn(delay: 600.ms),
 
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 20),
+
+                    // Download App Button (web only)
+                    if (canDownloadApp) ...[
+                      GestureDetector(
+                        onTap: downloadApp,
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(18),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.30),
+                              width: 1.2,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.android_rounded, color: Colors.white, size: 24),
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Download Our App',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Get the Android APK  •  ~49 MB',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white.withOpacity(0.78),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              const Icon(Icons.download_rounded, color: Colors.white, size: 22),
+                            ],
+                          ),
+                        ),
+                      )
+                          .animate()
+                          .fadeIn(delay: 700.ms)
+                          .slideY(begin: 0.2, end: 0, delay: 700.ms, duration: 400.ms),
+                      const SizedBox(height: 20),
+                    ] else
+                      const SizedBox(height: 28),
 
                     // Guarantee footer
                     Row(
