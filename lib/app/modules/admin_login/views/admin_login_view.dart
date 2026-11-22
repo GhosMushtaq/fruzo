@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import '../controllers/admin_login_controller.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/widgets/fruzo_button.dart';
-import '../../../data/repositories/auth_repository.dart';
 
 class AdminLoginView extends StatefulWidget {
   const AdminLoginView({super.key});
@@ -270,32 +269,6 @@ class _AdminLoginViewState extends State<AdminLoginView>
                             icon: Icons.login_rounded,
                           ),
                         ).animate().slideY(begin: 0.2, end: 0, delay: 550.ms, duration: 400.ms).fadeIn(delay: 550.ms),
-
-                        const SizedBox(height: 16),
-
-                        Obx(
-                          () {
-                            final auth = AuthRepository();
-                            // read reactive values so Obx tracks them
-                            final u = auth.rxUsername.value;
-                            final p = auth.rxPassword.value;
-                            return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: AppColors.softPeach.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                'Current Login: $u / $p',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.primaryOrange,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
                       ],
                     ),
                   ),
