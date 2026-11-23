@@ -16,81 +16,45 @@ class DatabaseHelper {
   static final List<Map<String, dynamic>> _webItems = [
     {
       'id': 1,
-      'name': 'Mango Delight Cup',
-      'price': 120.0,
-      'description': 'Fresh mango pieces with chili-lime seasoning',
-      'category': 'Cup',
-      'imagePath': 'assets/images/item_mango_cup.jpg',
+      'name': 'Pistachio Delight',
+      'price': 200.0,
+      'description': 'Rich layered pistachio dessert with roasted nuts and sweet cream',
+      'category': 'Special',
+      'imagePath': 'assets/images/item_pistachio_delight.jpg',
       'isAsset': 1
     },
     {
       'id': 2,
-      'name': 'Strawberry Dream',
-      'price': 150.0,
-      'description': 'Fresh strawberries with cream drizzle',
-      'category': 'Cup',
-      'imagePath': 'assets/images/item_strawberry_cup.jpg',
+      'name': 'Special Green Tea',
+      'price': 200.0,
+      'description': 'Warm traditional pink Kashmiri green tea topped with crushed pistachios & almonds',
+      'category': 'Special',
+      'imagePath': 'assets/images/item_special_green_tea.jpg',
       'isAsset': 1
     },
     {
       'id': 3,
-      'name': 'Mixed Fruit Bowl',
-      'price': 180.0,
-      'description': 'Seasonal mixed fruits in a large bowl',
-      'category': 'Bowl',
-      'imagePath': 'assets/images/item_mixed_fruit.jpg',
+      'name': 'Mango Delight',
+      'price': 200.0,
+      'description': 'Layered fresh mango puree, cream, and crunchy biscuit crumble',
+      'category': 'Cup',
+      'imagePath': 'assets/images/item_mango_delight.jpg',
       'isAsset': 1
     },
     {
       'id': 4,
-      'name': 'Watermelon Cooler',
-      'price': 100.0,
-      'description': 'Chilled watermelon with black salt',
-      'category': 'Cup',
-      'imagePath': 'assets/images/item_watermelon.jpg',
-      'isAsset': 1
-    },
-    {
-      'id': 5,
-      'name': 'Berry Blast',
-      'price': 160.0,
-      'description': 'Mixed berries with honey drizzle',
-      'category': 'Bowl',
-      'imagePath': 'assets/images/item_berry_blast.jpg',
-      'isAsset': 1
-    },
-    {
-      'id': 6,
-      'name': 'Tropical Paradise',
+      'name': 'Fresh Fruit Cup',
       'price': 200.0,
-      'description': 'Pineapple mango papaya mix',
-      'category': 'Bowl',
-      'imagePath': 'assets/images/item_tropical.jpg',
-      'isAsset': 1
-    },
-    {
-      'id': 7,
-      'name': 'Citrus Burst',
-      'price': 130.0,
-      'description': 'Orange grapefruit and lemon mix',
+      'description': 'Crisp layers of kiwi, pomegranate, banana, papaya, grapes and dates',
       'category': 'Cup',
-      'imagePath': 'assets/images/item_citrus.jpg',
-      'isAsset': 1
-    },
-    {
-      'id': 8,
-      'name': 'Dragon Fruit Special',
-      'price': 220.0,
-      'description': 'Premium dragon fruit with coconut flakes',
-      'category': 'Special',
-      'imagePath': 'assets/images/item_dragon_fruit.jpg',
+      'imagePath': 'assets/images/item_fresh_fruit_cup.jpg',
       'isAsset': 1
     },
   ];
 
   static final List<Map<String, dynamic>> _webOrders = [];
   static final List<Map<String, dynamic>> _webOrderItems = [];
-  static int _nextItemId = 9;
+  static int _nextItemId = 5;
   static int _nextOrderId = 1;
   static int _nextOrderItemId = 1;
 
@@ -103,7 +67,19 @@ class DatabaseHelper {
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
     final path = p.join(dbPath, 'fruzo.db');
-    return openDatabase(path, version: 1, onCreate: _onCreate);
+    return openDatabase(
+      path,
+      version: 2,
+      onCreate: _onCreate,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.delete('items');
+          for (final s in _webItems) {
+            await db.insert('items', Map<String, dynamic>.from(s));
+          }
+        }
+      },
+    );
   }
 
   Future<void> _onCreate(Database db, int version) async {

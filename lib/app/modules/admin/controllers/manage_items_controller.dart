@@ -89,7 +89,7 @@ class ManageItemsController extends GetxController {
         imagePath = pickedImagePath.value;
         isAsset = isPickedImageAnAsset.value;
       } else {
-        imagePath = 'assets/images/item_mango_cup.jpg';
+        imagePath = 'assets/images/item_fresh_fruit_cup.jpg';
         isAsset = true;
       }
 

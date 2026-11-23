@@ -11,6 +11,6 @@ class HomeController extends GetxController {
   final banners = [
     {'image': 'assets/images/banner_1.jpg', 'title': '🍉 Summer Deals!', 'subtitle': 'Up to 20% off on all cups', 'cta': 'Shop Now'},
     {'image': 'assets/images/banner_2.jpg', 'title': '🍓 Fresh Daily', 'subtitle': 'Hand-picked fruits every morning', 'cta': 'Explore'},
-    {'image': 'assets/images/banner_3.jpg', 'title': '🥭 New Arrival', 'subtitle': 'Mango Dragon Fruit Special', 'cta': 'Try Now'},
+    {'image': 'assets/images/banner_3.jpg', 'title': '🥭 New Arrival', 'subtitle': 'Pistachio & Mango Delight', 'cta': 'Try Now'},
   ];
 }
